@@ -1,0 +1,86 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* RailMitra Control Center Theme (Dark Operations Default) */
+    --background: 150 20% 4%;            /* #080c0a */
+    --foreground: 150 10% 95%;           /* #eff5f1 */
+
+    --card: 150 22% 7%;                  /* #0e1612 */
+    --card-foreground: 150 10% 95%;
+
+    --popover: 150 22% 7%;
+    --popover-foreground: 150 10% 95%;
+
+    --primary: 158 82% 40%;              /* #10b981 Emerald 500 */
+    --primary-foreground: 150 20% 4%;
+
+    --secondary: 152 25% 12%;            /* #17261e Forest slate */
+    --secondary-foreground: 150 15% 85%;
+
+    --muted: 150 20% 10%;                /* #131f18 */
+    --muted-foreground: 150 8% 60%;      /* #8fa397 */
+
+    --accent: 152 30% 15%;               /* #1b3326 */
+    --accent-foreground: 158 75% 65%;    /* #6ee7b7 */
+
+    --destructive: 349 89% 58%;          /* #f43f5e */
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 152 20% 15%;               /* #1e3025 */
+    --input: 152 20% 13%;
+    --ring: 158 82% 40%;
+
+    --radius: 0.5rem;
+
+    /* Railway Operation Status Tokens */
+    --operational: 158 82% 40%;          /* 🟢 Emerald */
+    --operational-foreground: 0 0% 100%;
+    --operational-muted: 158 82% 40% / 0.15;
+
+    --warning: 38 92% 50%;               /* 🟡 Amber */
+    --warning-foreground: 0 0% 100%;
+    --warning-muted: 38 92% 50% / 0.15;
+
+    --critical: 349 89% 58%;             /* 🔴 Crimson / Rose */
+    --critical-foreground: 0 0% 100%;
+    --critical-muted: 349 89% 58% / 0.15;
+
+    --information: 199 89% 48%;          /* 🔵 Cyan / Sky */
+    --information-foreground: 0 0% 100%;
+    --information-muted: 199 89% 48% / 0.15;
+
+    --inactive: 215 16% 47%;             /* ⚪ Slate */
+    --inactive-foreground: 0 0% 100%;
+    --inactive-muted: 215 16% 47% / 0.15;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  }
+
+  /* Custom control-room scrollbars */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: hsl(var(--background));
+  }
+  ::-webkit-scrollbar-thumb {
+    background: hsl(var(--border));
+    border-radius: 3px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: hsl(var(--primary) / 0.4);
+  }
+}
