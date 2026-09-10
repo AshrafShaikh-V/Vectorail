@@ -1,25 +1,16 @@
 import React from 'react';
 import { Card, CardHeader, CardTitle, CardContent, Button } from '@/components/ui';
-import { AlertTriangle, ExternalLink } from 'lucide-react';
+import { ExternalLink } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-import { DashboardAlert } from '@/data/dashboardData';
+import { Alert } from '@/features/alerts/types';
+import { getSeverityColor } from '@/features/alerts/utils';
 
 interface AlertsPreviewPanelProps {
-  alerts: DashboardAlert[];
+  alerts: Alert[];
 }
 
 export const AlertsPreviewPanel: React.FC<AlertsPreviewPanelProps> = ({ alerts }) => {
   const navigate = useNavigate();
-
-  const getSeverityColor = (severity: string) => {
-    switch (severity) {
-      case 'CRITICAL': return 'text-rose-400 border-rose-500/30 bg-rose-500/10';
-      case 'HIGH': return 'text-orange-400 border-orange-500/30 bg-orange-500/10';
-      case 'MEDIUM': return 'text-amber-400 border-amber-500/30 bg-amber-500/10';
-      case 'LOW': return 'text-emerald-400 border-emerald-500/30 bg-emerald-500/10';
-      default: return 'text-muted-foreground border-border bg-secondary/10';
-    }
-  };
 
   return (
     <Card className="border-border bg-card/50 h-full">
@@ -28,7 +19,7 @@ export const AlertsPreviewPanel: React.FC<AlertsPreviewPanelProps> = ({ alerts }
           <CardTitle className="text-sm font-bold uppercase tracking-wider font-mono">
             Operational Alerts
           </CardTitle>
-          <CardDescription className="text-[11px]">High-priority network and safety warnings</CardDescription>
+          <p className="text-[11px] text-muted-foreground">High-priority network and safety warnings</p>
         </div>
         <Button variant="ghost" size="sm" className="text-xs gap-1 h-7" onClick={() => navigate('/alerts')}>
           View All <ExternalLink className="h-3 w-3" />
@@ -41,7 +32,7 @@ export const AlertsPreviewPanel: React.FC<AlertsPreviewPanelProps> = ({ alerts }
               <span className={cn('text-[10px] font-bold px-1.5 py-0.5 rounded border font-mono', getSeverityColor(alert.severity))}>
                 {alert.severity}
               </span>
-              <span className="text-[10px] font-mono text-muted-foreground">{alert.timestamp}</span>
+              <span className="text-[10px] font-mono text-muted-foreground">{alert.createdAt.substring(0, 10)}</span>
             </div>
             <div className="text-xs font-semibold text-foreground">{alert.title}</div>
             <div className="text-[11px] text-muted-foreground font-mono">{alert.source}</div>

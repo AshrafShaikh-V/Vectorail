@@ -5,6 +5,7 @@ import { DashboardPage } from '@/pages/DashboardPage';
 import { LoginPage } from '@/pages/LoginPage';
 import { SettingsPage } from '@/pages/SettingsPage';
 import { PlaceholderPage } from '@/pages/PlaceholderPage';
+import { AlertsPage } from '@/pages/AlertsPage';
 import { TrainsPage } from '@/pages/TrainsPage';
 import { TrainDetailsPage } from '@/pages/TrainDetailsPage';
 import { ProtectedRoute } from '@/auth/ProtectedRoute';
@@ -59,13 +60,7 @@ export const App: React.FC = () => {
         />
         <Route
           path="/alerts"
-          element={
-            <PlaceholderPage
-              title="Alerts & Incident Monitoring"
-              subtitle="Real-time track conflict, signal failure, and delay alerts."
-              moduleName="Safety & Incident Dispatch"
-            />
-          }
+          element={<AlertsPage />}
         />
         <Route
           path="/analytics"

@@ -11,6 +11,7 @@ import {
   useToast,
   Button
 } from '@/components/ui';
+import { useNavigate } from 'react-router-dom';
 import { DashboardHeader } from '@/components/dashboard/DashboardHeader';
 import { DashboardControls } from '@/components/dashboard/DashboardControls';
 import { DashboardSection } from '@/components/dashboard/DashboardSection';
@@ -30,23 +31,38 @@ import { OperationalActivityFeed } from '@/components/dashboard/OperationalActiv
 import { PerformanceSnapshot } from '@/components/dashboard/PerformanceSnapshot';
 import { DASHBOARD_MOCK_DATA } from '@/data/dashboardData';
 import { trainService } from '@/features/trains';
+import { alertService } from '@/features/alerts/services/alertService';
+import { Alert } from '@/features/alerts/types';
 import { TrainSummary } from '@/features/trains/types/trainFilter';
 
 export const DashboardPage: React.FC = () => {
   const { toast } = useToast();
+  const navigate = useNavigate();
   const [trainSummary, setTrainSummary] = useState<TrainSummary | null>(null);
+  const [alerts, setAlerts] = useState<Alert[]>([]);
 
   useEffect(() => {
-    trainService.getTrainSummary().then(setTrainSummary);
+    Promise.all([
+      trainService.getTrainSummary(),
+      alertService.getActiveAlerts()
+    ]).then(([tSum, aData]) => {
+      setTrainSummary(tSum);
+      setAlerts(aData);
+    });
   }, []);
 
-  const handleRefresh = () => {
+  const handleRefresh = async () => {
     toast({
       type: 'info',
       title: 'Telemetry Sync',
       message: 'Refreshing real-time operational data from sector gateways...',
     });
-    trainService.getTrainSummary().then(setTrainSummary);
+    const [tSum, aData] = await Promise.all([
+      trainService.getTrainSummary(),
+      alertService.getActiveAlerts()
+    ]);
+    setTrainSummary(tSum);
+    setAlerts(aData);
   };
 
   return (
@@ -135,12 +151,12 @@ export const DashboardPage: React.FC = () => {
           title="Alerts & Incidents"
           description="High-priority operational events and safety warnings"
           action={
-            <Button variant="ghost" size="sm" className="text-xs gap-1 h-7" onClick={() => {}}>
+            <Button variant="ghost" size="sm" className="text-xs gap-1 h-7" onClick={() => navigate('/alerts')}>
               Incident Log <ExternalLink className="h-3 w-3" />
             </Button>
           }
         >
-          <AlertsOverview />
+          <AlertsPreviewPanel alerts={alerts} />
         </DashboardSection>
 
         {/* Performance Overview */}

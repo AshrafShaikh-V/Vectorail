@@ -16,16 +16,6 @@ export interface RailwaySection {
   maxPermissibleSpeed: number;
 }
 
-export interface Alert {
-  id: string;
-  severity: 'OPERATIONAL' | 'WARNING' | 'CRITICAL' | 'INFORMATION';
-  title: string;
-  description: string;
-  timestamp: string;
-  sourceModule: string;
-  acknowledged: boolean;
-}
-
 export interface NetworkNode {
   id: string;
   label: string;
