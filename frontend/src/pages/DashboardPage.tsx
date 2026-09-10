@@ -4,6 +4,7 @@ import {
   Clock,
   AlertTriangle,
   Activity,
+  ExternalLink
 } from 'lucide-react';
 import {
   KpiCard,
@@ -22,8 +23,12 @@ import { OperationalHealthCard } from '@/components/dashboard/OperationalHealthC
 import { NetworkStatusWidget } from '@/components/dashboard/NetworkStatusWidget';
 import { TrainStatusSummary } from '@/components/dashboard/TrainStatusSummary';
 import { SystemStatusSummary } from '@/components/dashboard/SystemStatusSummary';
+import { ActiveTrainPanel } from '@/components/dashboard/ActiveTrainPanel';
+import { NetworkActivityPanel } from '@/components/dashboard/NetworkActivityPanel';
+import { AlertsPreviewPanel } from '@/components/dashboard/AlertsPreviewPanel';
+import { OperationalActivityFeed } from '@/components/dashboard/OperationalActivityFeed';
+import { PerformanceSnapshot } from '@/components/dashboard/PerformanceSnapshot';
 import { DASHBOARD_MOCK_DATA } from '@/data/dashboardData';
-import { ExternalLink } from 'lucide-react';
 
 export const DashboardPage: React.FC = () => {
   const { toast } = useToast();
