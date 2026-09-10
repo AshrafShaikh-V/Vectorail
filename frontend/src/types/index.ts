@@ -1,15 +1,3 @@
-export interface Train {
-  id: string;
-  number: string;
-  name: string;
-  status: 'OPERATIONAL' | 'DELAYED' | 'MAINTENANCE' | 'HALTED';
-  origin?: string;
-  destination?: string;
-  currentSpeedKmH?: number;
-  latitude?: number;
-  longitude?: number;
-}
-
 export interface Station {
   id: string;
   code: string;

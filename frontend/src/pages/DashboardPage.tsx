@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   TrainFront,
   Clock,
@@ -29,9 +29,16 @@ import { AlertsPreviewPanel } from '@/components/dashboard/AlertsPreviewPanel';
 import { OperationalActivityFeed } from '@/components/dashboard/OperationalActivityFeed';
 import { PerformanceSnapshot } from '@/components/dashboard/PerformanceSnapshot';
 import { DASHBOARD_MOCK_DATA } from '@/data/dashboardData';
+import { trainService } from '@/features/trains';
+import { TrainSummary } from '@/features/trains/types/trainFilter';
 
 export const DashboardPage: React.FC = () => {
   const { toast } = useToast();
+  const [trainSummary, setTrainSummary] = useState<TrainSummary | null>(null);
+
+  useEffect(() => {
+    trainService.getTrainSummary().then(setTrainSummary);
+  }, []);
 
   const handleRefresh = () => {
     toast({
@@ -39,6 +46,7 @@ export const DashboardPage: React.FC = () => {
       title: 'Telemetry Sync',
       message: 'Refreshing real-time operational data from sector gateways...',
     });
+    trainService.getTrainSummary().then(setTrainSummary);
   };
 
   return (
@@ -77,7 +85,12 @@ export const DashboardPage: React.FC = () => {
           <NetworkStatusWidget data={DASHBOARD_MOCK_DATA.networkStatus} />
         </div>
         <div className="lg:col-span-1">
-          <TrainStatusSummary data={DASHBOARD_MOCK_DATA.trainStatus} />
+          <TrainStatusSummary data={trainSummary || {
+            totalTrains: 0,
+            onTimeTrains: 0,
+            delayedTrains: 0,
+            stoppedTrains: 0
+          }} />
         </div>
       </div>
 

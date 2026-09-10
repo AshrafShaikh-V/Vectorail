@@ -29,8 +29,8 @@ export const NetworkSummary: React.FC<NetworkSummaryProps> = ({ network }) => {
         <span className={cn(
           'font-bold uppercase',
           network.status === 'OPERATIONAL' && 'text-emerald-400',
-          network.status === 'DEGRADED' && 'text-amber-400',
-          network.status === 'CRITICAL' && 'text-rose-400',
+          network.status === 'BUSY' && 'text-amber-400',
+          network.status === 'CLOSED' && 'text-rose-400',
         )}>
           {network.status}
         </span>

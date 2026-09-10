@@ -36,12 +36,12 @@ export const networkService = {
 
   async getNetworkStatus(): Promise<NetworkStatusSummary> {
     const totalSections = MOCK_NETWORK.sections.length;
-    const criticalSections = MOCK_NETWORK.sections.filter(s => s.status === 'BLOCKED').length;
+    const criticalSections = MOCK_NETWORK.sections.filter(s => s.status === 'CLOSED').length;
     const maintenanceSections = MOCK_NETWORK.sections.filter(s => s.status === 'MAINTENANCE').length;
     const operationalSections = totalSections - criticalSections - maintenanceSections;
 
     return {
-      overallStatus: criticalSections > 0 ? 'CRITICAL' : (maintenanceSections > 0 ? 'DEGRADED' : 'OPERATIONAL'),
+      overallStatus: criticalSections > 0 ? 'CLOSED' : (maintenanceSections > 0 ? 'BUSY' : 'OPERATIONAL'),
       availability: `${((operationalSections / totalSections) * 100).toFixed(1)}%`,
       utilization: 64.2,
       activeSections: operationalSections,

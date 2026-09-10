@@ -1,5 +1,6 @@
-export type NodeStatus = 'OPERATIONAL' | 'DEGRADED' | 'CRITICAL' | 'MAINTENANCE';
-export type SectionStatus = 'CLEAR' | 'OCCUPIED' | 'BLOCKED' | 'MAINTENANCE';
+export type NetworkStatus = 'OPERATIONAL' | 'BUSY' | 'CONGESTED' | 'MAINTENANCE' | 'RESTRICTED' | 'CLOSED';
+export type NodeStatus = NetworkStatus;
+export type SectionStatus = NetworkStatus;
 export type CongestionLevel = 'LOW' | 'MODERATE' | 'HEAVY' | 'CRITICAL';
 
 export interface NetworkNode {
@@ -13,6 +14,8 @@ export interface NetworkNode {
 export interface Station extends NetworkNode {
   code: string;
   platforms: number;
+  tracks: number;
+  activityLevel: 'LOW' | 'MODERATE' | 'HIGH' | 'CRITICAL';
   city: string;
 }
 
@@ -34,6 +37,9 @@ export interface RailwaySection {
   endNodeId: string;
   status: SectionStatus;
   utilization: number;
+  speedLimit: number;
+  tracks: number;
+  electrified: boolean;
 }
 
 export interface RailwayLine {
