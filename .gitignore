@@ -1,17 +1,15 @@
-# ─── Frontend ───────────────────────────────────────────────────────────────
+# Node / Frontend
 node_modules/
 dist/
-.env
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
-*.log
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
+dist-ssr/
+*.local
 
-# ─── Backend (Java / Maven / Spring Boot) ───────────────────────────────────
+# Environment files
+.env
+.env.*
+!.env.example
+
+# Java / Maven / Backend
 target/
 *.class
 *.jar
@@ -19,23 +17,22 @@ target/
 *.ear
 .mvn/wrapper/maven-wrapper.jar
 
-# ─── IDEs & Editors ─────────────────────────────────────────────────────────
+# IDE & Editors
 .idea/
-*.iml
-*.ipr
-*.iws
 .vscode/
 *.suo
 *.ntvs*
 *.njsproj
 *.sln
-
-# ─── OS ─────────────────────────────────────────────────────────────────────
+*.sw?
 .DS_Store
 Thumbs.db
-desktop.ini
 
-# ─── Secrets / Environment ──────────────────────────────────────────────────
-*.env
-!*.env.example
-secrets.properties
+# Logs
+*.log
+logs/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*

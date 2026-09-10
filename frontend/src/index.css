@@ -4,83 +4,122 @@
 
 @layer base {
   :root {
-    /* RailMitra Control Center Theme (Dark Operations Default) */
-    --background: 150 20% 4%;            /* #080c0a */
-    --foreground: 150 10% 95%;           /* #eff5f1 */
+    /* Base backgrounds - Dark charcoal / green-black control center */
+    --background: 215 32% 6%;          /* #0a0e13 */
+    --foreground: 210 24% 98%;         /* #f8fafc */
 
-    --card: 150 22% 7%;                  /* #0e1612 */
-    --card-foreground: 150 10% 95%;
+    /* Surface panels & cards */
+    --card: 215 28% 9%;               /* #10161f */
+    --card-foreground: 210 24% 98%;
 
-    --popover: 150 22% 7%;
-    --popover-foreground: 150 10% 95%;
+    --surface-elevated: 215 25% 12%;   /* #151d28 */
+    --surface-hover: 215 22% 15%;      /* #1b2432 */
 
-    --primary: 158 82% 40%;              /* #10b981 Emerald 500 */
-    --primary-foreground: 150 20% 4%;
+    /* Primary emerald / railway operational green */
+    --primary: 158 64% 45%;            /* #29be7d */
+    --primary-hover: 158 70% 38%;      /* #1da76a */
+    --primary-active: 158 78% 30%;     /* #118150 */
+    --primary-foreground: 160 84% 9%;
 
-    --secondary: 152 25% 12%;            /* #17261e Forest slate */
-    --secondary-foreground: 150 15% 85%;
+    /* Secondary slate / charcoal */
+    --secondary: 215 22% 14%;          /* #1b232e */
+    --secondary-foreground: 210 20% 92%;
 
-    --muted: 150 20% 10%;                /* #131f18 */
-    --muted-foreground: 150 8% 60%;      /* #8fa397 */
+    /* Muted elements & subtle borders */
+    --muted: 215 20% 16%;
+    --muted-foreground: 215 15% 62%;   /* readable muted gray-green */
 
-    --accent: 152 30% 15%;               /* #1b3326 */
-    --accent-foreground: 158 75% 65%;    /* #6ee7b7 */
-
-    --destructive: 349 89% 58%;          /* #f43f5e */
-    --destructive-foreground: 0 0% 100%;
-
-    --border: 152 20% 15%;               /* #1e3025 */
-    --input: 152 20% 13%;
-    --ring: 158 82% 40%;
+    --border: 215 22% 15%;             /* #1d2633 */
+    --border-subtle: 215 20% 12%;
+    --input: 215 22% 15%;
+    --ring: 158 64% 45%;
 
     --radius: 0.5rem;
 
-    /* Railway Operation Status Tokens */
-    --operational: 158 82% 40%;          /* 🟢 Emerald */
-    --operational-foreground: 0 0% 100%;
-    --operational-muted: 158 82% 40% / 0.15;
-
-    --warning: 38 92% 50%;               /* 🟡 Amber */
-    --warning-foreground: 0 0% 100%;
-    --warning-muted: 38 92% 50% / 0.15;
-
-    --critical: 349 89% 58%;             /* 🔴 Crimson / Rose */
-    --critical-foreground: 0 0% 100%;
-    --critical-muted: 349 89% 58% / 0.15;
-
-    --information: 199 89% 48%;          /* 🔵 Cyan / Sky */
-    --information-foreground: 0 0% 100%;
-    --information-muted: 199 89% 48% / 0.15;
-
-    --inactive: 215 16% 47%;             /* ⚪ Slate */
-    --inactive-foreground: 0 0% 100%;
-    --inactive-muted: 215 16% 47% / 0.15;
+    /* Status indicators - strictly aligned */
+    --status-operational: 158 64% 45%;   /* 🟢 Green / Operational */
+    --status-warning: 38 92% 50%;       /* 🟡 Amber / Warning */
+    --status-critical: 350 89% 60%;      /* 🔴 Red / Critical */
+    --status-information: 199 89% 48%;   /* 🔵 Blue / Information */
+    --status-inactive: 215 16% 47%;      /* ⚪ Gray / Inactive */
   }
-}
 
-@layer base {
   * {
     @apply border-border;
   }
 
   body {
-    @apply bg-background text-foreground;
-    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
+    min-height: 100vh;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
   }
 
-  /* Custom control-room scrollbars */
-  ::-webkit-scrollbar {
-    width: 6px;
-    height: 6px;
+  code, pre, .font-mono, .tabular-nums {
+    font-family: 'JetBrains Mono', monospace;
+    font-feature-settings: 'tnum';
   }
-  ::-webkit-scrollbar-track {
-    background: hsl(var(--background));
-  }
-  ::-webkit-scrollbar-thumb {
-    background: hsl(var(--border));
-    border-radius: 3px;
-  }
-  ::-webkit-scrollbar-thumb:hover {
-    background: hsl(var(--primary) / 0.4);
-  }
+}
+
+/* Operational KPI numbers typography */
+.kpi-value {
+  font-family: 'JetBrains Mono', monospace;
+  font-feature-settings: 'tnum';
+  font-weight: 700;
+  letter-spacing: -0.03em;
+}
+
+/* Control center scrollbar */
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+::-webkit-scrollbar-track {
+  background: hsl(var(--background));
+}
+::-webkit-scrollbar-thumb {
+  background: hsl(var(--muted));
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--muted-foreground));
+}
+
+/* Focus rings */
+.focus-ring {
+  @apply focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary focus-visible:ring-offset-1 focus-visible:ring-offset-background;
+}
+
+/* Body scroll lock */
+body.scroll-locked {
+  overflow: hidden;
+}
+
+/* Fade-in animation */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.animate-fadeIn {
+  animation: fadeIn 0.25s ease-out both;
+}
+
+/* Slide-in from right animation for Drawer */
+@keyframes slideInRight {
+  from { transform: translateX(100%); opacity: 0; }
+  to   { transform: translateX(0);    opacity: 1; }
+}
+.animate-slideInRight {
+  animation: slideInRight 0.22s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* Slide-in from top for Dialog */
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.96) translateY(-4px); }
+  to   { opacity: 1; transform: scale(1)    translateY(0); }
+}
+.animate-scaleIn {
+  animation: scaleIn 0.2s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
