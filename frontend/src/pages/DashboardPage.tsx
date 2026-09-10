@@ -8,6 +8,7 @@ import {
 import {
   KpiCard,
   useToast,
+  Button
 } from '@/components/ui';
 import { DashboardHeader } from '@/components/dashboard/DashboardHeader';
 import { DashboardControls } from '@/components/dashboard/DashboardControls';
@@ -17,7 +18,11 @@ import { TrainOperationsPreview } from '@/components/dashboard/TrainOperationsPr
 import { AlertsOverview } from '@/components/dashboard/AlertsOverview';
 import { PerformanceOverview } from '@/components/dashboard/PerformanceOverview';
 import { SmartOperationsPreview } from '@/components/dashboard/SmartOperationsPreview';
-import { Button } from '@/components/ui';
+import { OperationalHealthCard } from '@/components/dashboard/OperationalHealthCard';
+import { NetworkStatusWidget } from '@/components/dashboard/NetworkStatusWidget';
+import { TrainStatusSummary } from '@/components/dashboard/TrainStatusSummary';
+import { SystemStatusSummary } from '@/components/dashboard/SystemStatusSummary';
+import { DASHBOARD_MOCK_DATA } from '@/data/dashboardData';
 import { ExternalLink } from 'lucide-react';
 
 export const DashboardPage: React.FC = () => {
@@ -41,39 +46,43 @@ export const DashboardPage: React.FC = () => {
 
       {/* Primary Overview Area - KPIs */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        <KpiCard
-          label="Active Trains"
-          value="142"
-          icon={TrainFront}
-          status="operational"
-          trend={{ value: "↑ 8.4%", direction: "up", label: "vs yesterday" }}
-          description="Sector 01 & 02 mainline"
-        />
-        <KpiCard
-          label="On-Time Rate"
-          value="87.4%"
-          icon={Clock}
-          status="operational"
-          trend={{ value: "+2.1%", direction: "up", label: "this shift" }}
-          description="124 of 142 on schedule"
-        />
-        <KpiCard
-          label="Delayed Trains"
-          value="18"
-          icon={Activity}
-          status="warning"
-          trend={{ value: "-3", direction: "down", label: "since 08:00" }}
-          description="Avg delay: 7.2 min"
-        />
-        <KpiCard
-          label="Critical Alerts"
-          value="03"
-          icon={AlertTriangle}
-          status="critical"
-          trend={{ value: "+1", direction: "up", label: "unacknowledged" }}
-          description="Requires immediate action"
-        />
+        {DASHBOARD_MOCK_DATA.primaryKpis.map((kpi) => (
+          <KpiCard
+            key={kpi.id}
+            label={kpi.label}
+            value={kpi.value}
+            icon={kpi.icon}
+            status={kpi.status}
+            trend={{
+              value: kpi.trend?.value || '0%',
+              direction: kpi.trend?.direction || 'neutral',
+              label: kpi.trend?.label,
+            }}
+            description={kpi.description}
+          />
+        ))}
       </div>
+
+      {/* Operational Health Summary */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div className="lg:col-span-1">
+          <OperationalHealthCard data={DASHBOARD_MOCK_DATA.operationalHealth} />
+        </div>
+        <div className="lg:col-span-1">
+          <NetworkStatusWidget data={DASHBOARD_MOCK_DATA.networkStatus} />
+        </div>
+        <div className="lg:col-span-1">
+          <TrainStatusSummary data={DASHBOARD_MOCK_DATA.trainStatus} />
+        </div>
+      </div>
+
+      {/* System Health Summary */}
+      <DashboardSection
+        title="System Infrastructure Status"
+        description="Real-time health of control center services"
+      >
+        <SystemStatusSummary data={DASHBOARD_MOCK_DATA.systemStatus} />
+      </DashboardSection>
 
       {/* Main Operational Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
