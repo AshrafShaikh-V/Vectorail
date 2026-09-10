@@ -55,6 +55,15 @@ export const authService = {
     }
   },
 
+  updateUser(updates: Partial<AuthUser>): AuthUser {
+    const currentUser = this.getCurrentUser();
+    if (!currentUser) throw new Error('No authenticated user found');
+
+    const updatedUser = { ...currentUser, ...updates };
+    localStorage.setItem(AUTH_STORAGE_KEY, JSON.stringify(updatedUser));
+    return updatedUser;
+  },
+
   isAuthenticated(): boolean {
     return !!this.getCurrentUser();
   },

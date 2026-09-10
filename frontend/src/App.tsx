@@ -3,6 +3,7 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 import { AppLayout } from '@/layouts/AppLayout';
 import { DashboardPage } from '@/pages/DashboardPage';
 import { LoginPage } from '@/pages/LoginPage';
+import { SettingsPage } from '@/pages/SettingsPage';
 import { PlaceholderPage } from '@/pages/PlaceholderPage';
 import { ProtectedRoute } from '@/auth/ProtectedRoute';
 import { useAuth } from '@/hooks/useAuth';
@@ -98,13 +99,7 @@ export const App: React.FC = () => {
         />
         <Route
           path="/settings"
-          element={
-            <PlaceholderPage
-              title="System Settings"
-              subtitle="API thresholds, telemetry poll rates, and controller preferences."
-              moduleName="Configuration"
-            />
-          }
+          element={<SettingsPage />}
         />
       </Route>
 

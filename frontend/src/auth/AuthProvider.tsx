@@ -5,6 +5,7 @@ import { authService } from './authService';
 interface AuthContextType extends AuthState {
   login: (credentials: any) => Promise<void>;
   logout: () => void;
+  updateUser: (updates: Partial<AuthUser>) => void;
 }
 
 export const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -53,8 +54,21 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     });
   };
 
+  const updateUser = (updates: Partial<AuthUser>) => {
+    try {
+      const updatedUser = authService.updateUser(updates);
+      setState((prev) => ({
+        ...prev,
+        user: updatedUser,
+      }));
+    } catch (error) {
+      console.error('Failed to update user profile', error);
+      throw error;
+    }
+  };
+
   return (
-    <AuthContext.Provider value={{ ...state, login, logout }}>
+    <AuthContext.Provider value={{ ...state, login, logout, updateUser }}>
       {children}
     </AuthContext.Provider>
   );
