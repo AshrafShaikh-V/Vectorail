@@ -1,3 +1,5 @@
+import { TrainSchedule } from './trainSchedule';
+
 export type TrainType = 'Express' | 'Intercity' | 'Regional' | 'Local' | 'Freight' | 'Special';
 export type TrainOperationalStatus = 'Running' | 'Stopped' | 'Boarding' | 'Arriving' | 'Departed' | 'Cancelled' | 'Terminated';
 export type TrainServiceStatus = 'On Time' | 'Delayed' | 'Minor Delay' | 'Major Delay' | 'Critical Delay';

@@ -1,5 +1,5 @@
-import { Train, TrainRoute } from '../types/train';
-import { TrainRoute as TrainRouteType } from '../types/trainRoute';
+import { Train } from '../types/train';
+import { TrainRoute } from '../types/trainRoute';
 
 export const MOCK_TRAIN_ROUTES: Record<string, TrainRoute> = {
   'route-blue-main': {

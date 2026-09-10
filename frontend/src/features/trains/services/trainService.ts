@@ -1,5 +1,5 @@
-import { Train, TrainSummary, TrainFilter } from '../types/train';
-import { TrainFilter as TrainFilterType } from '../types/trainFilter';
+import { Train, TrainSummary } from '../types/train';
+import { TrainFilter } from '../types/trainFilter';
 import { MOCK_TRAINS } from '../data/mockTrains';
 
 export const trainService = {
@@ -11,7 +11,7 @@ export const trainService = {
     return MOCK_TRAINS.find(t => t.id === id);
   },
 
-  async getTrainsByFilter(filter: TrainFilterType): Promise<Train[]> {
+  async getTrainsByFilter(filter: TrainFilter): Promise<Train[]> {
     return MOCK_TRAINS.filter(train => {
       if (filter.status && train.status !== filter.status) return false;
       if (filter.serviceStatus && train.serviceStatus !== filter.serviceStatus) return false;
