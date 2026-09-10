@@ -5,6 +5,8 @@ import { DashboardPage } from '@/pages/DashboardPage';
 import { LoginPage } from '@/pages/LoginPage';
 import { SettingsPage } from '@/pages/SettingsPage';
 import { PlaceholderPage } from '@/pages/PlaceholderPage';
+import { TrainsPage } from '@/pages/TrainsPage';
+import { TrainDetailsPage } from '@/pages/TrainDetailsPage';
 import { ProtectedRoute } from '@/auth/ProtectedRoute';
 import { useAuth } from '@/hooks/useAuth';
 
@@ -49,13 +51,11 @@ export const App: React.FC = () => {
         />
         <Route
           path="/trains"
-          element={
-            <PlaceholderPage
-              title="Trains Telemetry"
-              subtitle="Active train fleet tracking, schedule compliance, and block telemetry."
-              moduleName="Fleet Operations"
-            />
-          }
+          element={<TrainsPage />}
+        />
+        <Route
+          path="/trains/:trainId"
+          element={<TrainDetailsPage />}
         />
         <Route
           path="/alerts"
